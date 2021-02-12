@@ -4,6 +4,23 @@ on: [push]
 
 jobs:
   build:
+    strategy:
+      matrix:
+        cassandra-version: [3.11, 4.0, dse]
+        include:
+          - cassandra-version: 3.11
+            run311tests: true
+            run40tests: false
+            runDSEtests: false
+          - cassandra-version: 4.0
+            run311tests: false
+            run40tests: true
+            runDSEtests: false
+          - cassandra-version: 4.0
+            run311tests: false
+            run40tests: false
+            runDSEtests: true
+
     runs-on: ubuntu-latest
 
     steps:
@@ -55,5 +72,5 @@ jobs:
           docker build -t mgmtapi-dse-68 -f Dockerfile-dse-68 .
       - name: Build with Maven
         run: mvn -B -q package -DskipTests --file pom.xml -P dse
-      - name: run tests
-        run: mvn -B -q test --file pom.xml -P dse
+      - name: Run Integration Tests
+        run: mvn -B -q integration-test --file pom.xml -P dse -Drun311tests=${{ matrix.run311tests }} -Drun40tests=${{ matrix.run40tests }} -DrunDSEtests=${{ matrix.runDSEtests }}
