@@ -62,7 +62,6 @@ jobs:
           </settings>
           EOF
           cp ~/.m2/settings.xml settings.xml
-        run: |
           set -e
           if [[ "${{ matrix.runDSEtests }}" == "true" ]]
           then
