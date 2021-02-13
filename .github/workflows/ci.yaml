@@ -5,6 +5,7 @@ on: [push]
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         cassandra-version: [3.11, 4.0, dse]
         include:
@@ -71,6 +72,19 @@ jobs:
           docker build -t mgmtapi-4_0 -f Dockerfile-4_0 .
           docker build -t mgmtapi-dse-68 -f Dockerfile-dse-68 .
       - name: Build with Maven
-        run: mvn -B -q package -DskipTests --file pom.xml -P dse
+        run: |
+          set -e
+          if [[ "${{ matrix.runDSEtests }}" == "true" ]]
+          then
+            mvn -B -q package -DskipTests --file pom.xml -P dse
+          else
+            mvn -B -q package -DskipTests --file pom.xml
+          fi
       - name: Run Integration Tests
-        run: mvn -B -q integration-test --file pom.xml -P dse -Drun311tests=${{ matrix.run311tests }} -Drun40tests=${{ matrix.run40tests }} -DrunDSEtests=${{ matrix.runDSEtests }}
+        run: |
+          set -e
+          if [[ "${{ matrix.runDSEtests }}" == "true" ]]
+          then
+            mvn -B -q integration-test --file pom.xml -P dse -DrunDSEtests=${{ matrix.runDSEtests }}
+          else
+            mvn -B -q integration-test --file pom.xml -Drun311tests=${{ matrix.run311tests }} -Drun40tests=${{ matrix.run40tests }}
