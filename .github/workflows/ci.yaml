@@ -17,7 +17,7 @@ jobs:
             run311tests: false
             run40tests: true
             runDSEtests: false
-          - cassandra-version: 4.0
+          - cassandra-version: dse
             run311tests: false
             run40tests: false
             runDSEtests: true
@@ -74,7 +74,7 @@ jobs:
           set -e
           if [[ "${{ matrix.runDSEtests }}" == "true" ]]
           then
-            mvn -B -q integration-test --file pom.xml -P dse -DrunDSEtests=${{ matrix.runDSEtests }}
+            mvn -B -q integration-test --file pom.xml -P dse -DrunDSEtests=true
           else
             mvn -B -q integration-test --file pom.xml -Drun311tests=${{ matrix.run311tests }} -Drun40tests=${{ matrix.run40tests }}
           fi
