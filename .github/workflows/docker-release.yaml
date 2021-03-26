@@ -68,7 +68,7 @@ jobs:
           docker buildx build --push \
             --build-arg CASSANDRA_VERSION=3.11.7 \
             --tag emerkle826/cass-mgmtapi:3.11.7 \
-            --tag emerkle826/cass-mgmtapi3.11.7-:$RELEASE_VERSION \
+            --tag emerkle826/cass-mgmtapi:3.11.7-$RELEASE_VERSION \
             --file Dockerfile-oss \
             --target oss311 \
             --platform linux/amd64,linux/arm64 .
@@ -78,7 +78,7 @@ jobs:
           docker buildx build --push \
             --build-arg CASSANDRA_VERSION=3.11.8 \
             --tag emerkle826/cass-mgmtapi:3.11.8 \
-            --tag emerkle826/cass-mgmtapi3.11.8-:$RELEASE_VERSION \
+            --tag emerkle826/cass-mgmtapi:3.11.8-$RELEASE_VERSION \
             --file Dockerfile-oss \
             --target oss311 \
             --platform linux/amd64,linux/arm64 .
@@ -88,7 +88,7 @@ jobs:
           docker buildx build --push \
             --build-arg CASSANDRA_VERSION=3.11.9 \
             --tag emerkle826/cass-mgmtapi:3.11.9 \
-            --tag emerkle826/cass-mgmtapi3.11.9-:$RELEASE_VERSION \
+            --tag emerkle826/cass-mgmtapi:3.11.9-$RELEASE_VERSION \
             --file Dockerfile-oss \
             --target oss311 \
             --platform linux/amd64,linux/arm64 .
@@ -98,7 +98,7 @@ jobs:
           docker buildx build --push \
             --build-arg CASSANDRA_VERSION=3.11.10 \
             --tag emerkle826/cass-mgmtapi:3.11.10 \
-            --tag emerkle826/cass-mgmtapi3.11.10-:$RELEASE_VERSION \
+            --tag emerkle826/cass-mgmtapi:3.11.10-$RELEASE_VERSION \
             --file Dockerfile-oss \
             --target oss311 \
             --platform linux/amd64 .
