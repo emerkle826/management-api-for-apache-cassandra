@@ -36,7 +36,7 @@ jobs:
       - name: Publish DSE 6.8 to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: datastax/dse-mgmtapi-6_8
+          name: emerkle826/dse-mgmtapi-6_8
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           tags: '${{ env.RELEASE_VERSION }}'
@@ -44,7 +44,7 @@ jobs:
       - name: Publish 4.0 to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: k8ssandra/cass-mgmtapi
+          name: emerkle826/cass-mgmtapi
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           tags: '4.0.0,4.0.0-${{ env.RELEASE_VERSION }}'
@@ -67,8 +67,8 @@ jobs:
           RELEASE_VERSION="${GITHUB_REF##*/}"
           docker buildx build --push \
             --build-arg CASSANDRA_VERSION=3.11.7 \
-            --tag k8ssandra/cass-mgmtapi:3.11.7 \
-            --tag k8ssandra/cass-mgmtapi3.11.7-:$RELEASE_VERSION \
+            --tag emerkle826/cass-mgmtapi:3.11.7 \
+            --tag emerkle826/cass-mgmtapi3.11.7-:$RELEASE_VERSION \
             --file Dockerfile-oss \
             --target oss311 \
             --platform linux/amd64,linux/arm64 .
@@ -77,8 +77,8 @@ jobs:
           RELEASE_VERSION="${GITHUB_REF##*/}"
           docker buildx build --push \
             --build-arg CASSANDRA_VERSION=3.11.8 \
-            --tag k8ssandra/cass-mgmtapi:3.11.8 \
-            --tag k8ssandra/cass-mgmtapi3.11.8-:$RELEASE_VERSION \
+            --tag emerkle826/cass-mgmtapi:3.11.8 \
+            --tag emerkle826/cass-mgmtapi3.11.8-:$RELEASE_VERSION \
             --file Dockerfile-oss \
             --target oss311 \
             --platform linux/amd64,linux/arm64 .
@@ -87,8 +87,8 @@ jobs:
           RELEASE_VERSION="${GITHUB_REF##*/}"
           docker buildx build --push \
             --build-arg CASSANDRA_VERSION=3.11.9 \
-            --tag k8ssandra/cass-mgmtapi:3.11.9 \
-            --tag k8ssandra/cass-mgmtapi3.11.9-:$RELEASE_VERSION \
+            --tag emerkle826/cass-mgmtapi:3.11.9 \
+            --tag emerkle826/cass-mgmtapi3.11.9-:$RELEASE_VERSION \
             --file Dockerfile-oss \
             --target oss311 \
             --platform linux/amd64,linux/arm64 .
@@ -97,8 +97,8 @@ jobs:
           RELEASE_VERSION="${GITHUB_REF##*/}"
           docker buildx build --push \
             --build-arg CASSANDRA_VERSION=3.11.10 \
-            --tag k8ssandra/cass-mgmtapi:3.11.10 \
-            --tag k8ssandra/cass-mgmtapi3.11.10-:$RELEASE_VERSION \
+            --tag emerkle826/cass-mgmtapi:3.11.10 \
+            --tag emerkle826/cass-mgmtapi3.11.10-:$RELEASE_VERSION \
             --file Dockerfile-oss \
             --target oss311 \
             --platform linux/amd64 .
