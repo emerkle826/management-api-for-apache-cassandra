@@ -34,6 +34,7 @@ import static com.datastax.oss.driver.api.core.config.DefaultDriverOption.AUTH_P
 import static com.datastax.oss.driver.api.core.config.DefaultDriverOption.AUTH_PROVIDER_PASSWORD;
 import static com.datastax.oss.driver.api.core.config.DefaultDriverOption.AUTH_PROVIDER_USER_NAME;
 import static com.datastax.oss.driver.api.core.config.DefaultDriverOption.LOAD_BALANCING_LOCAL_DATACENTER;
+import static com.datastax.oss.driver.api.core.config.DefaultDriverOption.PROTOCOL_VERSION;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -175,6 +176,8 @@ public class LifecycleIT extends BaseDockerIntegrationTest
                                 .withString(AUTH_PROVIDER_USER_NAME, "cassandra")
                                 .withString(AUTH_PROVIDER_PASSWORD, "cassandra")
                                 .withString(LOAD_BALANCING_LOCAL_DATACENTER, "dc1")
+                                // uncomment this to pin the driver version to V5
+                                // .withString(PROTOCOL_VERSION, "V5")
                                 .build())
                         .addContactPoint(new InetSocketAddress("127.0.0.1", 9042))
                         .build();
@@ -201,6 +204,8 @@ public class LifecycleIT extends BaseDockerIntegrationTest
                             .withString(AUTH_PROVIDER_USER_NAME, "authtest")
                             .withString(AUTH_PROVIDER_PASSWORD, "authtest")
                             .withString(LOAD_BALANCING_LOCAL_DATACENTER, "dc1")
+                            // uncomment this to pin the driver version to V5
+                            // .withString(PROTOCOL_VERSION, "V5")
                             .build())
                     .addContactPoint(new InetSocketAddress("127.0.0.1", 9042))
                     .build();
