@@ -341,4 +341,12 @@ public class NodeOpsResources
         }
     }
 
+    @POST
+    @Path("/repair")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Operation(summary = "Perform a nodetool repair")
+    public Response repair(@QueryParameter(value="keyspaces") List>String> keyspaces, @QueryParameter(value="tables" List<String> tables, @QueryParameter(value="full") Boolean full)
+    {
+        
+    }
 }
