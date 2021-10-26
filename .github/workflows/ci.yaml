@@ -68,4 +68,60 @@ jobs:
           else
             MAVEN_OPTS="-Drun311tests=${{ matrix.run311tests }} -Drun40tests=${{ matrix.run40tests }}"
           fi
-          mvn -B -q install --file pom.xml $MAVEN_OPTS
+          mvn -B -q install --file pom.xml $MAVEN_OPTS -DskipTests
+  publish:
+    needs: build
+    if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push'}}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        cassandra-version: [3.11.7, 3.11.8, 3.11.11, 4.0.0, 4.0.1]
+        build-name: [emerkle826/cass-management-api]
+        build-target: [oss311, oss40]
+        docker-file: [Dockerfile-oss, Dockerfile-4_0]
+        platforms: ['linux/amd64,linux/arm64']
+        exclude:
+          - cassandra-version: 3.11.7
+            build-target: oss40
+            docker-file: Dockerfile-4_0
+          - cassandra-version: 3.11.8
+            build-target: oss40
+            docker-file: Dockerfile-4_0
+          - cassandra-version: 3.11.11
+            build-target: oss40
+            docker-file: Dockerfile-4_0
+          - cassandra-version: 4.0.0
+            build-target: oss311
+            docker-file: Dockerfile-oss
+          - cassandra-version: 4.0.1
+            build-target: oss311
+            docker-file: Dockerfile-oss
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v2
+      # Setup metadata based on the commit/tag that will be used for tagging the image
+      # Only build and publish a commit based tag
+      - name: Setup Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            ${{ matrix.build-name }}
+          tags: |
+            type=sha,prefix=${{ matrix.cassandra-version }}-
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          file: ${{ matrix.docker-file }}
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          platforms: ${{ matrix.platforms }}
