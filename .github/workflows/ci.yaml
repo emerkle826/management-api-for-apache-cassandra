@@ -68,7 +68,7 @@ jobs:
           else
             MAVEN_OPTS="-Drun311tests=${{ matrix.run311tests }} -Drun40tests=${{ matrix.run40tests }}"
           fi
-          mvn -B -q install --file pom.xml $MAVEN_OPTS -DskipTetss
+          mvn -B -q install --file pom.xml $MAVEN_OPTS -DskipTests
   publish:
     needs: build
     if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push'}}
