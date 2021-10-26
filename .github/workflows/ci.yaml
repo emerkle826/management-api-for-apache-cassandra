@@ -75,27 +75,24 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        cassandra-version: [3.11.7, 3.11.8, 3.11.11, 4.0.0, 4.0.1]
         build-name: [emerkle826/cass-management-api]
-        build-target: [oss311, oss40]
-        docker-file: [Dockerfile-oss, Dockerfile-4_0]
         platforms: ['linux/amd64,linux/arm64']
-        exclude:
+        include:
           - cassandra-version: 3.11.7
-            build-target: oss40
-            docker-file: Dockerfile-4_0
+            build-target: oss311
+            docker-file: Dockerfile-oss
           - cassandra-version: 3.11.8
-            build-target: oss40
-            docker-file: Dockerfile-4_0
+            build-target: oss311
+            docker-file: Dockerfile-oss
           - cassandra-version: 3.11.11
+            build-target: oss311
+            docker-file: Dockerfile-oss
+          - cassandra-version: 4.0.0
             build-target: oss40
             docker-file: Dockerfile-4_0
-          - cassandra-version: 4.0.0
-            build-target: oss311
-            docker-file: Dockerfile-oss
           - cassandra-version: 4.0.1
-            build-target: oss311
-            docker-file: Dockerfile-oss
+            build-target: oss40
+            docker-file: Dockerfile-4_0
     steps:
       - name: Check out source code
         uses: actions/checkout@v2
