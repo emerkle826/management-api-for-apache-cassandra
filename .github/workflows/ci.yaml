@@ -76,9 +76,9 @@ jobs:
     strategy:
       matrix:
         cassandra-version: [3.11.17]
-        docker-file: [Dockerfile-oss]
-        build-target: [oss311]
-        build-name: [emerkle826/cass-management-api]
+        docker-file: ['Dockerfile-oss']
+        build-target: ['oss311']
+        build-name: ['emerkle826/cass-management-api']
         platforms: ['linux/amd64,linux/arm64']
         include:
           - cassandra-version: 3.11.8
