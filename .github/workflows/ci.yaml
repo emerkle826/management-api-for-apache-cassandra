@@ -72,7 +72,7 @@ jobs:
   publish-oss:
     name: Publish ${{ matrix.cassandra-version }} Cassandra image
     needs: build
-    if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push'}}
+    if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' && !github.event.pull_request.head.repo.fork }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -116,7 +116,7 @@ jobs:
   publish-dse:
     name: Publish DSE image
     needs: build
-    if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push'}}
+    if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' && !github.event.pull_request.head.repo.fork }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out source code
